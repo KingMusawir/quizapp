@@ -27,17 +27,28 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
     case 'dataReceived':
-      return { ...state, questions: action.payload, status: 'ready' };
+      return {
+        ...state,
+        questions: action.payload,
+        status: 'ready',
+      };
+
     case 'dataFailed':
-      return { ...state, status: 'error' };
+      return {
+        ...state,
+        status: 'error',
+      };
+
     case 'start':
       return {
         ...state,
         status: 'active',
-        secondsRemaining: state.question.length * SECS_PER_QUESTION,
+        secondsRemaining: state.questions.length * SECS_PER_QUESTION,
       };
+
     case 'newAnswer':
       const question = state.questions.at(state.index);
+
       return {
         ...state,
         answer: action.payload,
@@ -90,6 +101,7 @@ function App() {
   return (
     <div className='app'>
       <Header />
+
       <Mainbody>
         {status === 'loading' && <Loader />}
         {status === 'error' && <Error />}

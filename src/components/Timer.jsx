@@ -6,7 +6,7 @@ function Timer({ dispatch, secondsRemaining }) {
   useEffect(
     function () {
       const id = setInterval(function () {
-        dispatchEvent({ type: 'tick' });
+        dispatch({ type: 'tick' });
       }, 1000);
 
       return () => clearInterval(id);
